@@ -1,0 +1,9 @@
+.git
+.github
+**/target
+infra
+gitops-repository
+docs
+README.md
+CHANGELOG.md
+Makefile

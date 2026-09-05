@@ -1,0 +1,41 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Unit tests
+        working-directory: app
+        run: mvn -B clean verify
+      - name: Build container
+        run: docker build -t order-service:pr-${{ github.event.pull_request.number || github.run_number }} .
+      - uses: azure/setup-helm@v4
+      - name: Validate Helm chart
+        run: |
+          helm lint gitops-repository/charts/order-service -f gitops-repository/charts/order-service/values-dev.yaml
+          helm template orders-dev gitops-repository/charts/order-service -f gitops-repository/charts/order-service/values-dev.yaml >/tmp/rendered.yaml
+      - uses: hashicorp/setup-terraform@v3
+      - name: Validate Terraform
+        working-directory: infra/terraform
+        run: |
+          terraform fmt -check
+          terraform init -backend=false
+          terraform validate

@@ -1,0 +1,9 @@
+**/target/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.idea/
+.vscode/
+.DS_Store
+gitops-worktree/

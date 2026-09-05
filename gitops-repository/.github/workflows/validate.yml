@@ -1,0 +1,24 @@
+name: Validate desired state
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitops-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  helm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+      - name: Lint and render development release
+        run: |
+          helm lint charts/order-service -f charts/order-service/values-dev.yaml
+          helm template orders-dev charts/order-service -f charts/order-service/values-dev.yaml >/tmp/orders-dev.yaml
