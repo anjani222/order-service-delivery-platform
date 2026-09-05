@@ -32,7 +32,7 @@ jobs:
         run: |
           helm lint gitops-repository/charts/order-service -f gitops-repository/charts/order-service/values-dev.yaml
           helm template orders-dev gitops-repository/charts/order-service -f gitops-repository/charts/order-service/values-dev.yaml >/tmp/rendered.yaml
-      - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v4
       - name: Validate Terraform
         working-directory: infra/terraform
         run: |
