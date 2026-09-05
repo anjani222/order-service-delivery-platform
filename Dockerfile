@@ -5,7 +5,7 @@ RUN mvn -B dependency:go-offline
 COPY app/src ./src
 RUN mvn -B clean verify
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 RUN addgroup -S app && adduser -S -G app -u 10001 app
 WORKDIR /app
 COPY --from=build /workspace/target/order-service-1.0.0.jar app.jar
