@@ -37,12 +37,12 @@ module "eks" {
   name               = local.cluster_name
   kubernetes_version = var.cluster_version
 
-  endpoint_private_access                   = true
-  endpoint_public_access                    = true
-  endpoint_public_access_cidrs              = var.cluster_endpoint_public_access_cidrs
+  endpoint_private_access                  = true
+  endpoint_public_access                   = true
+  endpoint_public_access_cidrs             = var.cluster_endpoint_public_access_cidrs
   enable_cluster_creator_admin_permissions = true
-  enabled_log_types                         = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-  cloudwatch_log_group_retention_in_days    = 30
+  enabled_log_types                        = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  cloudwatch_log_group_retention_in_days   = 30
   upgrade_policy = {
     support_type = "STANDARD"
   }
