@@ -24,6 +24,12 @@ This repository is an independent portfolio implementation. It is designed to re
 - Tested manual scaling from two to three replicas, completed a rolling restart, and restored the Helm-managed replica count to two.
 - Resolved a Helm 4 server-side apply conflict caused by the earlier `kubectl scale` operation and returned the release to deployed status at revision 3.
 
+- Created the separate public GitOps repository `anjani222/order-service-gitops` containing the Helm chart and Argo CD Application manifest.
+- Validated the GitOps repository through GitHub Actions; Helm linting and manifest rendering passed successfully (run `34040361525`).
+- Installed Argo CD in the local kind cluster and verified all seven Argo CD pods were ready with zero restarts.
+- Transferred deployment ownership from the manually installed Helm release to Argo CD and verified the application reached `Synced` and `Healthy` status.
+- Tested Git-driven scaling through commit `44a935e`; Argo CD changed the deployment from two to three replicas, then self-healed a manual scale-down from three replicas to one back to the Git-defined count of three.
+
 ## Evidence to collect during hands-on execution
 
 | Milestone | Evidence to add |
