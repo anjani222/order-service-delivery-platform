@@ -12,6 +12,18 @@ This repository is an independent portfolio implementation. It is designed to re
 - Immutable image-tag promotion design
 - Terraform, Helm, security and rollback controls represented in code
 
+## Hands-on verification completed
+
+- Ran the Maven build with Java 21; two unit tests passed with no failures or errors, and the executable `order-service-1.0.0.jar` was generated.
+- Started the JAR locally and verified the Actuator health endpoint and the GET/POST order endpoints.
+- Built `order-service:1.0.0` using the multi-stage Dockerfile and verified the container reached healthy status.
+- Published the project to GitHub and completed GitHub Actions validation for Maven tests, container build, Helm chart rendering and Terraform validation (run `33982307334`).
+- Created a local Kubernetes v1.37.0 cluster using kind and loaded the application image into the cluster node.
+- Installed the Helm release `orders-dev` in the `orders-dev` namespace and verified two ready application pods with zero restarts.
+- Verified the health and order endpoints through the Kubernetes ClusterIP service using port forwarding.
+- Tested manual scaling from two to three replicas, completed a rolling restart, and restored the Helm-managed replica count to two.
+- Resolved a Helm 4 server-side apply conflict caused by the earlier `kubectl scale` operation and returned the release to deployed status at revision 3.
+
 ## Evidence to collect during hands-on execution
 
 | Milestone | Evidence to add |
