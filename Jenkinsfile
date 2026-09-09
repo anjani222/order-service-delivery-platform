@@ -5,7 +5,7 @@ pipeline {
     string(name: 'AWS_REGION', defaultValue: 'us-east-1', description: 'AWS deployment region')
     string(name: 'ECR_REPOSITORY', defaultValue: '437287029768.dkr.ecr.us-east-1.amazonaws.com/gitops-platform/order-service', description: 'ECR repository URL')
     string(name: 'GITOPS_REPO_SSH', defaultValue: 'git@github.com:anjani222/order-service-gitops.git', description: 'SSH URL used to push the desired-state change')
-    booleanParam(name: 'RUN_SONAR', defaultValue: false, description: 'Run SonarQube analysis and quality gate')
+    booleanParam(name: 'RUN_SONAR', defaultValue: true, description: 'Run SonarQube analysis and quality gate')
   }
 
   environment {
