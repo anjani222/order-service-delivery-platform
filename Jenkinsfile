@@ -45,7 +45,7 @@ pipeline {
       when { expression { return params.RUN_SONAR } }
       steps {
         withSonarQubeEnv('sonarqube') {
-          dir('app') { sh 'mvn -B sonar:sonar -Dsonar.projectKey=order-service' }
+          dir('app') { sh 'mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:5.2.0.4988:sonar -Dsonar.projectKey=order-service' }
         }
       }
     }
