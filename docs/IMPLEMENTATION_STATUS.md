@@ -30,6 +30,16 @@ This repository is an independent portfolio implementation. It is designed to re
 - Transferred deployment ownership from the manually installed Helm release to Argo CD and verified the application reached `Synced` and `Healthy` status.
 - Tested Git-driven scaling through commit `44a935e`; Argo CD changed the deployment from two to three replicas, then self-healed a manual scale-down from three replicas to one back to the Git-defined count of three.
 
+## AWS end-to-end verification completed
+
+- Provisioned Amazon EKS, Amazon ECR and a stable Jenkins EC2 runner using Terraform.
+- Executed Maven tests, SonarQube analysis, Quality Gate enforcement, Docker build and Trivy scanning through Jenkins.
+- Remediated critical Tomcat findings by upgrading to version 10.1.59; the final Trivy scan reported zero critical vulnerabilities.
+- Pushed immutable image tag `860205de` to ECR and automatically updated the GitOps repository through commit `c46baca`.
+- Verified Argo CD application `order-service-dev` was `Synced` and `Healthy`.
+- Verified three ready EKS application pods with zero restarts and confirmed the health and order API responses.
+- Configured restricted GitHub webhook delivery and validated successful ping and push deliveries to Jenkins.
+
 ## Evidence to collect during hands-on execution
 
 | Milestone | Evidence to add |
