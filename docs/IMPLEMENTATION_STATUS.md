@@ -40,6 +40,7 @@ This repository is an independent portfolio implementation. It is designed to re
 - Verified three ready EKS application pods with zero restarts and confirmed the health and order API responses.
 - Configured restricted GitHub webhook delivery and validated successful ping and push deliveries to Jenkins.
 - Installed the resource-controlled kube-prometheus-stack on EKS and verified Prometheus scraping all three order-service pods with `up = 1`, plus live CPU and memory metrics in Grafana.
+- Completed a controlled GitOps rollback from image `4c5a6dd1` to `a4c5a8a5` through commit `9001c83`, verified three ready pods with zero restarts, and restored the latest image through commit `592e338`.
 
 ## Evidence to collect during hands-on execution
 
