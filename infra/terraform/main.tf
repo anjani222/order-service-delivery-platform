@@ -62,7 +62,7 @@ module "eks" {
     application = {
       instance_types = var.node_instance_types
       min_size       = 1
-      desired_size   = 2
+      desired_size   = 3
       max_size       = 4
       capacity_type  = "ON_DEMAND"
       labels = {
