@@ -32,6 +32,14 @@ resource "aws_security_group" "jenkins" {
   }
 
   ingress {
+    description = "GitHub webhook delivery"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["192.30.252.0/22", "185.199.108.0/22", "140.82.112.0/20", "143.55.64.0/20"]
+  }
+
+  ingress {
     description = "SonarQube web interface"
     from_port   = 9000
     to_port     = 9000
