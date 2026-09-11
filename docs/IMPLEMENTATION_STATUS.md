@@ -35,10 +35,11 @@ This repository is an independent portfolio implementation. It is designed to re
 - Provisioned Amazon EKS, Amazon ECR and a stable Jenkins EC2 runner using Terraform.
 - Executed Maven tests, SonarQube analysis, Quality Gate enforcement, Docker build and Trivy scanning through Jenkins.
 - Remediated critical Tomcat findings by upgrading to version 10.1.59; the final Trivy scan reported zero critical vulnerabilities.
-- Pushed immutable image tag `860205de` to ECR and automatically updated the GitOps repository through commit `c46baca`.
+- Pushed immutable image tag `a4c5a8a5` to ECR through Jenkins Build #8 and automatically updated the GitOps repository through commit `cae238b`.
 - Verified Argo CD application `order-service-dev` was `Synced` and `Healthy`.
 - Verified three ready EKS application pods with zero restarts and confirmed the health and order API responses.
 - Configured restricted GitHub webhook delivery and validated successful ping and push deliveries to Jenkins.
+- Installed the resource-controlled kube-prometheus-stack on EKS and verified Prometheus scraping all three order-service pods with `up = 1`, plus live CPU and memory metrics in Grafana.
 
 ## Evidence to collect during hands-on execution
 
