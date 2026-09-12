@@ -34,6 +34,37 @@ flowchart LR
 
 Jenkins builds an image tagged with the short application commit SHA. It then clones the separate `order-service-gitops` repository and updates `charts/order-service/values-dev.yaml`. Argo CD watches that repository and applies the Helm release. Jenkins does not deploy directly to the cluster; this keeps build responsibility and deployment responsibility separate and avoids a pipeline loop caused by committing release changes back to the application repository.
 
+
+## Verified implementation results
+
+The platform was deployed and validated in an AWS development environment. Evidence was collected after completing the CI/CD, GitOps, security and observability workflow.
+
+| Verification     | Result                                                           |
+| ---------------- | ---------------------------------------------------------------- |
+| GitHub webhook   | Successful push deliveries to Jenkins                            |
+| Jenkins pipeline | Build #10 completed successfully                                 |
+| Unit tests       | Passed with no test failures                                     |
+| SonarQube        | Quality Gate passed                                              |
+| Trivy            | Zero critical vulnerabilities detected                           |
+| Amazon ECR       | Immutable image `805a78f7` published                             |
+| Argo CD          | Application reported `Synced` and `Healthy`                      |
+| Amazon EKS       | Three application pods running with zero restarts                |
+| Prometheus       | All three order-service targets returned `up = 1`                |
+| Grafana          | Live CPU and memory metrics displayed for `orders-dev`           |
+| GitOps rollback  | Rollback and restoration completed through auditable Git commits |
+
+The sanitized implementation evidence is available in [`docs/evidence/README.md`](docs/evidence/README.md).
+
+## Two-minute demonstration
+
+1. Open the GitHub repository and explain the separation between application code and GitOps desired state.
+2. Show the successful GitHub webhook delivery and Jenkins Build #10.
+3. Open the Jenkins stage view to demonstrate Maven tests, SonarQube, Docker, Trivy, ECR and GitOps promotion.
+4. Show the immutable image tag `805a78f7` in Amazon ECR.
+5. Open Argo CD and confirm that `order-service-dev` is `Synced` and `Healthy`.
+6. Show the three running EKS pods, Prometheus targets with `up = 1`, and the Grafana dashboard.
+7. Finish with the GitOps rollback and restoration commits to demonstrate controlled recovery and auditability.
+
 ## Run it locally
 
 The quickest path needs only Docker:
@@ -176,11 +207,12 @@ More detail is recorded in `docs/DECISIONS.md`.
 
 The dependency baseline and the date it was reviewed are recorded in `docs/VERSIONS.md`.
 
-For a concise recruiter-facing overview, see `docs/HR_PROJECT_BRIEF.md`. The distinction between completed structural checks and runtime evidence still to be collected is recorded in `docs/IMPLEMENTATION_STATUS.md`.
+For a concise recruiter-facing overview, see `docs/HR_PROJECT_BRIEF.md`. Detailed implementation status and verification notes are recorded in `docs/IMPLEMENTATION_STATUS.md`.
 
 ## Current verification status
 
-Repository-level XML, YAML, shell syntax and archive checks have been completed. The local and AWS runbooks are included so build output, screenshots and cloud results can be collected in the target environment. No production traffic, availability or cost-saving numbers are claimed by this repository.
+Repository validation and end-to-end runtime verification have been completed. The verified workflow includes GitHub webhook delivery, Jenkins Build #10, Maven tests, SonarQube Quality Gate enforcement, Trivy container scanning, immutable ECR publishing, GitOps promotion, Argo CD synchronization, EKS workload health, Prometheus scraping, Grafana monitoring and a tested Git-based rollback. Sanitized screenshots are maintained in [`docs/evidence`](docs/evidence/README.md). This repository represents a development lab implementation and does not claim production traffic, availability or cost-saving results.
+
 
 ## Project summary for a CV
 
