@@ -27,7 +27,7 @@ jobs:
         run: mvn -B clean verify
       - name: Build container
         run: docker build -t order-service:pr-${{ github.event.pull_request.number || github.run_number }} .
-      - uses: azure/setup-helm@v4
+      - uses: azure/setup-helm@v5
       - name: Validate Helm chart
         run: |
           helm lint gitops-repository/charts/order-service -f gitops-repository/charts/order-service/values-dev.yaml
